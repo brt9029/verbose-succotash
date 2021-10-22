@@ -1,5 +1,42 @@
 // Assignment code here
+function generatePassword() {
+  let passLength = window.prompt("Please enter desired password length (value between 8 and 128)");
+  passLength = parseInt(passLength);
 
+  let lowerLetters = "abcdefghijklmnopqrstuvwxyz";
+  let upperLetters = lowerLetters.toUpperCase();
+  let num = "1234567890";
+  let special = "!@#$%^&*)(;'[]`><,.?"
+  let mixed = lowerLetters + upperLetters + num + special;
+  let generated = "";
+
+  // after getting the password criteria, make sure it meets it by adding at least one to it
+  if (passLength >= 8 && passLength <= 128) {
+    if(confirm("Would you like to include uppercase characters?")){
+      generated += upperLetters[Math.floor(Math.random() * upperLetters.length)];
+    } else {
+      mixed = mixed.replace(upperLetters, "");
+    } if (confirm("Would you like to include lowercase characters?")) {
+      generated += lowerLetters[Math.floor(Math.random() * lowerLetters.length)];
+    } else {
+      mixed = mixed.replace(lowerLetters, "");
+    } if (confirm("Would you like to include numbers?")) {
+      generated += num[Math.floor(Math.random() * num.length)];
+    } else {
+      mixed = mixed.replace(num, "");
+    } if (confirm("Would you like to include special characters?")) {
+      generated += special[Math.floor(Math.random() * special.length)];
+    } else {
+      mixed = mixed.replace(special, "");
+    }
+    for (let i = 0; i < passLength; i++){
+      generated += mixed[Math.floor(Math.random() * mixed.length)];
+    }
+  } else {
+    window.alert("please enter a valid number");
+  }
+  return generated;
+};
 
 // Get references to the #generate element
 let generateBtn = document.querySelector("#generate");
@@ -14,69 +51,6 @@ function writePassword() {
   passwordText.value = password;
 
 };
-
-function generatePassword() {
-  passwordLength();
-  // receive prompt to designate password length (between 8 and 128 characters)
-  // let passLower = window.prompt("Would you like to include lowercase characters?");
-  // let passNumber = window.prompt("Would you like to include numbers?");
-  // let passSpecial = window.prompt("Would you like to include special characters?");
-
-  // receive prompt for character type whether to include lowercase, uppercase, numeric, and/or special characters (1 prompt for each)
-  // if statement for each selection and validate that one was selected
-};
-
-function passwordLength() {
-  let passLength = window.prompt("Please enter desired password length (value between 8 and 128)");
-
-  if (parseInt(passLength) >= 8 && parseInt(passLength) <= 128) {
-    passUpper();
-  } else {
-    window.alert("please enter a valid number");
-    passwordLength();
-  }
-};
-
-function passUpper() {
-  let upper = window.prompt("Would you like to include uppercase characters? (Y/N)");
-
-  if (upper.toLowerCase() === 'y'){
-    console.log("Will include uppercase characters");
-  } else if (upper.toLowerCase() === 'n') {
-    console.log("Will not enter lowercase characters")
-  } else {
-    window.alert("Please enter a valid response");
-    passUpper();
-  }
-  passLower();
-};
-
-function passLower() {
-  let lower = window.prompt("Would you like to include lowercase characters? (Y/N)");
-
-  if (lower.toLowerCase() === 'y') {
-    console.log("Will include lowercase characters");
-  } else if (lower.toLowerCase() === 'n') {
-    console.log("Will not enter lowercase characters")
-  } else {
-    window.alert("Please enter a valid response");
-    passLower();
-  }
-  passSpecial();
-}
-
-function passSpecial() {
-  let special = window.prompt("Would you like ot include special characters? (Y/N)");
-
-  if (special.toLowerCase() === 'y') {
-    console.log("Will include lowercase characters");
-  } else if (special.toLowerCase() === 'n') {
-    console.log("Will not enter special characters")
-  } else {
-    window.alert("Please enter a valid response");
-    passSpecial();
-  }
-}
 
 // Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
