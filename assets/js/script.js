@@ -6,7 +6,7 @@ function generatePassword() {
   let lowerLetters = "abcdefghijklmnopqrstuvwxyz";
   let upperLetters = lowerLetters.toUpperCase();
   let num = "1234567890";
-  let special = "!@#$%^&*)(;'[]`><,.?"
+  let special = "!#$%&'()*+,-./:;<=>?@[]^_`{|}~";
   let mixed = "";
   let generated = "";
 
