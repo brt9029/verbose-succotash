@@ -7,31 +7,33 @@ function generatePassword() {
   let upperLetters = lowerLetters.toUpperCase();
   let num = "1234567890";
   let special = "!@#$%^&*)(;'[]`><,.?"
-  let mixed = lowerLetters + upperLetters + num + special;
+  let mixed = "";
   let generated = "";
 
   // after getting the password criteria, make sure it meets it by adding at least one to it
   if (passLength >= 8 && passLength <= 128) {
     if(confirm("Would you like to include uppercase characters?")){
       generated += upperLetters[Math.floor(Math.random() * upperLetters.length)];
-    } else {
-      mixed = mixed.replace(upperLetters, "");
+      mixed += upperLetters;
     } if (confirm("Would you like to include lowercase characters?")) {
       generated += lowerLetters[Math.floor(Math.random() * lowerLetters.length)];
-    } else {
-      mixed = mixed.replace(lowerLetters, "");
+      mixed += lowerLetters;
     } if (confirm("Would you like to include numbers?")) {
       generated += num[Math.floor(Math.random() * num.length)];
-    } else {
-      mixed = mixed.replace(num, "");
+      mixed += num;
     } if (confirm("Would you like to include special characters?")) {
       generated += special[Math.floor(Math.random() * special.length)];
-    } else {
-      mixed = mixed.replace(special, "");
-    }
+      mixed += special;
+    } if (!generated) {
+      window.alert("You didn't select any parameters!");
+      generated = "No parameters were selected!"
+      return generated;
+    } 
+
+    // uses the mixed string created from the selections made to create the rest of the password
     for (let i = 0; i < passLength; i++){
       generated += mixed[Math.floor(Math.random() * mixed.length)];
-    }
+    } 
   } else {
     window.alert("please enter a valid number");
   }
@@ -48,7 +50,7 @@ function writePassword() {
   
 
   // display password generated
-  passwordText.value = password;
+    passwordText.value = password;
 
 };
 
